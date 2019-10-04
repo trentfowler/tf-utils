@@ -1,6 +1,5 @@
 package com.tfowler.utils.datasource;
 
-import com.tfowler.utils.constants.DsClassName;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,13 +22,13 @@ import org.springframework.context.annotation.PropertySource;
 public final class DsConfig {
 
   /**
-   * This property sets the name of the class that provides the JDBC driver. This is the newer, more
-   * preferred, alternative to a DriverManager-based configuration and this property can be set
+   * This property sets the name of the class that provides the JDBC DataSource. This is the newer,
+   * more preferred, alternative to a DriverManager-based configuration and this property can be set
    * instead of setting the jdbcUrl and driverClassName properties. The default is none.
    * 
    * @see <a href="https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names"</a>
    */
-  private DsClassName dataSourceClassName;
+  private String dataSourceClassName;
 
   /**
    * This property directs HikariCP to use a DriverManager-based configuration. This style is older

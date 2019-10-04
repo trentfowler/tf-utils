@@ -13,16 +13,8 @@ import java.sql.SQLException;
  * explicitly defined for each new DataSource. Create an instance by calling "new" and passing a
  * {@link DsConfig} object as the sole parameter. After instantiating the DataSource, obtain a
  * {@link Connection} to the database for executing SQL statements by calling
- * {@link #getConnection()}. Example usage:
+ * {@link #getConnection()}.
  * 
- * <pre>
- * DsConfig config =
- *     DsConfig.builder().jdbcUrl("").driverClassName("").username("").password("").build();
- * DataSource dataSource = new DataSource(config);
- * Connection con = dataSource.getConnection();
- * // ...
- * </pre>
- *
  * @see DsConfig
  */
 public class DataSource {
