@@ -1,5 +1,7 @@
-package com.tfowler.utils.datasource;
+package com.tfowler.datasource;
 
+import com.tfowler.constants.JdbcDataSource;
+import com.tfowler.constants.JdbcDriver;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,28 +26,29 @@ public final class DsConfig {
   /**
    * This property sets the name of the class that provides the JDBC DataSource. This is the newer,
    * more preferred, alternative to a DriverManager-based configuration and this property can be set
-   * instead of setting the jdbcUrl and driverClassName properties. The default is none.
+   * instead of setting the {@code jdbcUrl} and {@code driverClass} properties. The default is none.
    * 
    * @see <a href="https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names"</a>
    */
-  private String dataSourceClassName;
+  private JdbcDataSource dataSourceClass;
 
   /**
    * This property directs HikariCP to use a DriverManager-based configuration. This style is older
    * and less preferred to a DataSource-based configuration, but it is sometimes necessary when
-   * dealing with certain JDBC driver classes. When setting the jdbcUrl, you may also need to set
-   * the driverClassName property, but you should try without it first. The default is none.
+   * dealing with certain JDBC driver classes. When setting the {@code jdbcUrl}, you may also need
+   * to set the {@code driverClass} property, but you should try without it first. The default is
+   * none.
    */
   private String jdbcUrl;
 
   /**
    * This property sets the driver class name for use in a DriverManager-based configuration where
-   * the jdbcUrl is specified. Note that the jdbcUrl is usually all that is required and HikariCP
-   * will try to resolve the driver solely using the jdbcUrl property, but occasionally this
+   * the {@code jdbcUrl} is specified. Note that the {@code jdbcUrl} is usually all that is required
+   * and HikariCP will try to resolve the driver solely using the url, but occasionally this
    * property must also be set when dealing with older drivers. You should try without setting this
    * property first. The default is none.
    */
-  private String driverClassName;
+  private JdbcDriver driverClass;
 
   /**
    * This property sets the default username for use by the underlying driver when it calls

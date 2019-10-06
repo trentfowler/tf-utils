@@ -1,8 +1,8 @@
-package com.tfowler.utils.constants;
+package com.tfowler.constants;
 
 /**
  * Provides a list of popular JDBC drivers and their corresponding class names. For use in a
- * DriverManager-based configuration to set the {@code driverClassName} property to desired
+ * DriverManager-based configuration to set the {@code driverClass} property to desired
  * database.
  *
  * @see <a href="http://www.sql-workbench.net/manual/jdbc-setup.html"></a>
@@ -15,7 +15,7 @@ public enum JdbcDriver {
   POSTGRESQL("org.postgresql.Driver"),
 
   /**
-   * @see <a href="">http://www.firebirdsql.org/</a>
+   * @see <a href="http://www.firebirdsql.org/"></a>
    */
   FIREBIRD("org.firebirdsql.jdbc.FBDriver"),
 
@@ -39,7 +39,7 @@ public enum JdbcDriver {
   /**
    * IBM DB2
    *
-   * @see <a href="http://www-01.ibm.com/software/data/db2/linux-unix-windows/download.html></a>
+   * @see <a href="http://www-01.ibm.com/software/data/db2/linux-unix-windows/download.html"></a>
    */
   DB2("com.ibm.db2.jcc.DB2Driver"),
 
@@ -56,30 +56,30 @@ public enum JdbcDriver {
   MSSQL("com.microsoft.sqlserver.jdbc.SQLServerDriver"),
 
   /**
-   * @see <a href="http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html></a>
+   * @see <a href="http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html"></a>
    */
   ORACLE("oracle.jdbc.OracleDriver"),
 
   /**
-   * @see <a href="https://downloads.mariadb.org/connector-java></a>
+   * @see <a href="https://downloads.mariadb.org/connector-java"></a>
    */
   MARIADB("org.mariadb.jdbc.Driver"),
 
   /**
-   * @see <a href="http://www.mysql.com/downloads/connector/j></a>
+   * @see <a href="http://www.mysql.com/downloads/connector/j"></a>
    */
   MYSQL("com.mysql.jdbc.Driver");
 
-  private final String name;
+  private final String className;
 
-  JdbcDriver(final String name) {
-    this.name = name;
+  JdbcDriver(final String className) {
+    this.className = className;
   }
 
   /**
    * @return String containing the full class name.
    */
-  public String getName() {
-    return this.name;
+  public String getClassName() {
+    return this.className;
   }
 }

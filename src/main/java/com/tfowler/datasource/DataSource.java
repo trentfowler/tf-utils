@@ -1,4 +1,4 @@
-package com.tfowler.utils.datasource;
+package com.tfowler.datasource;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -32,14 +32,10 @@ public class DataSource {
     }
     hkConfig.setJdbcUrl(config.getJdbcUrl());
 
-    if (config.getDriverClassName() == null) {
-      throw new IllegalArgumentException("The \"driverClassName\" property must not be null.");
+    if (config.getDriverClass() == null) {
+      throw new IllegalArgumentException("The \"driverClass\" property must not be null.");
     }
-    if (config.getDriverClassName().isEmpty()) {
-      throw new IllegalArgumentException(
-          "The \"driverClassName\" property must not be empty or blank.");
-    }
-    hkConfig.setDriverClassName(config.getDriverClassName());
+    hkConfig.setDriverClassName(config.getDriverClass().getClassName());
 
     if (config.getUsername() == null) {
       throw new IllegalArgumentException("The \"username\" property must not be null.");
@@ -143,7 +139,7 @@ public class DataSource {
   }
 
   /**
-   * Retrieves a {@link Connection} to the specified database that can execute SQL statements.
+   * Retrieves a {@link Connection} to the specified database that can fetchList SQL statements.
    *
    * @return The specified {@link Connection}.
    * @throws SQLException If the connection is closed or shut down.

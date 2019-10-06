@@ -1,9 +1,9 @@
-package com.tfowler.utils;
+package com.tfowler;
 
-import com.tfowler.utils.constants.JdbcDriver;
-import com.tfowler.utils.constants.ReturnCode;
-import com.tfowler.utils.datasource.DataSource;
-import com.tfowler.utils.datasource.DsConfig;
+import com.tfowler.constants.ReturnCode;
+import com.tfowler.datasource.DataSource;
+import com.tfowler.constants.JdbcDriver;
+import com.tfowler.datasource.DsConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -69,10 +69,10 @@ public class DsConnectionTest {
 
     String driverClassName = p.getProperty("database.driverClassName");
     Assert.assertNotNull(
-        "\"driverClassName\" property not found in application properties file (null).",
+        "\"driverClass\" property not found in application properties file (null).",
         driverClassName);
     Assert.assertFalse(
-        "The \"driverClassName\" key was found in the application properties file but the value is blank/invalid.",
+        "The \"driverClass\" key was found in the application properties file but the value is blank/invalid.",
         driverClassName.isEmpty());
 
     try {
@@ -85,8 +85,12 @@ public class DsConnectionTest {
       System.exit(ReturnCode.FAILURE);
     }
 
-    final DataSource ds = new DataSource(DsConfig.builder().jdbcUrl(jdbcUrl)
-        .driverClassName(driverClassName).username(username).password(password).build());
+    DataSource ds = null;
+    if (JdbcDriver.MSSQL.getClassName() == driverClassName) {
+      ds = new DataSource(DsConfig.builder().jdbcUrl(jdbcUrl).driverClass(JdbcDriver.MSSQL)
+          .username(username).password(password).build());
+    }
+    // TODO ...
 
     final String QUERY =
         "SELECT TOP 1000 DepartmentID, Name, GroupName, ModifiedDate FROM AdventureWorks.HumanResources.Department";

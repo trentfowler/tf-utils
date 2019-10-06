@@ -1,10 +1,10 @@
-package com.tfowler.utils.constants;
+package com.tfowler.constants;
 
 /**
  * Provides a list of popular JDBC DataSources and their corresponding class names. This is the
  * newer, more preferred, alternative to a DriverManager-based configuration. When using this method
- * there is no need to set the {@code jdbcUrl} or {@code driverClassName} properties. Instead, set
- * the {@code dataSourceClassName} property.
+ * there is no need to set the {@code jdbcUrl} or {@code driverClass} properties. Instead, set
+ * the {@code dataSourceClass} property.
  * 
  * @see <a href="https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names"></a>
  */
@@ -89,17 +89,17 @@ public enum JdbcDataSource {
    */
   SYBASE("com.sybase.jdbc4.jdbc.SybDataSource");
 
-  private final String name;
+  private final String className;
 
-  JdbcDataSource(final String name) {
-    this.name = name;
+  JdbcDataSource(final String className) {
+    this.className = className;
   }
 
   /**
    *
    * @return String containing the full class name.
    */
-  public String getName() {
-    return name;
+  public String getClassName() {
+    return className;
   }
 }

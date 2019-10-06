@@ -1,4 +1,4 @@
-package com.tfowler.utils.constants;
+package com.tfowler.constants;
 
 /**
  * Provides a general usage return code that can be used to indicate the success or failure of a

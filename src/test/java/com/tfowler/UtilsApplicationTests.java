@@ -1,4 +1,4 @@
-package com.tfowler.utils;
+package com.tfowler;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
