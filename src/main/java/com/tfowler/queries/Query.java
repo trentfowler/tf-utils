@@ -1,6 +1,7 @@
 package com.tfowler.queries;
 
 import com.tfowler.datasource.DataSource;
+import com.tfowler.utils.TypeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
@@ -15,67 +16,11 @@ public class Query {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Query.class);
 
-  private static final Query QUERY = new Query(); // create instance for singleton class
+  private static final Query QUERY = new Query(); // createWithProperties instance for singleton class
 
   private DataSource dataSource;
 
   private Query() {} // prevent instantiation
-
-  /**
-   * Checks whether a type which is given as the sole parameter is a primitive data type or not. For
-   * this to be true, it must be one of types: {@code int}, {@code long}, {@code double},
-   * {@code float}, {@code boolean}, {@code byte}, {@code char}, or {@code short}.
-   *
-   * @param type The class that you want to evaluate to determine whether it is a primitive data
-   *        type or not.
-   * @return {@code true} if the given parameter represents a primitive data type, otherwise
-   *         {@code false}.
-   */
-  private static boolean isPrimitive(Class<?> type) {
-    return type == int.class || type == long.class || type == double.class || type == float.class
-        || type == boolean.class || type == byte.class || type == char.class || type == short.class;
-  }
-
-  /**
-   * Takes a primitive data type as the sole parameter and returns its object (boxed) equivalent
-   * type. Note that {@link Field#set(Object, Object)} expects both arguments to be objects, so this
-   * method enables us to get the object equivalent to a primitive type, which we can use to cast a
-   * primitive value to an object by calling {@code boxed.cast(value)} (where {@code boxed} is the
-   * type returned by this method.
-   *
-   * @param type The primitive type that you want to get the object (boxed) equivalent of.
-   * @return The object type that matches the primitive type given.
-   */
-  private static Class<?> boxPrimitiveType(Class<?> type) {
-    if (type == int.class) {
-      return Integer.class;
-    }
-    if (type == long.class) {
-      return Long.class;
-    }
-    if (type == double.class) {
-      return Double.class;
-    }
-    if (type == float.class) {
-      return Float.class;
-    }
-    if (type == boolean.class) {
-      return Boolean.class;
-    }
-    if (type == byte.class) {
-      return Byte.class;
-    }
-    if (type == char.class) {
-      return Character.class;
-    }
-    if (type == short.class) {
-      return Short.class;
-    } else {
-      final String err = String.format("Class '%s' is not a primitive.", type.getName());
-      LOGGER.error(err);
-      throw new IllegalArgumentException(err);
-    }
-  }
 
   /**
    * Creates a {@link Query} object for use with the given {@link DataSource}.
@@ -108,8 +53,8 @@ public class Query {
         field.setAccessible(true);
         Object val = rs.getObject(field.getName());
         Class<?> type = field.getType();
-        if (isPrimitive(type)) {
-          Class<?> boxed = boxPrimitiveType(type);
+        if (TypeUtil.isPrimitive(type)) {
+          Class<?> boxed = TypeUtil.boxPrimitive(type);
           val = boxed.cast(val);
         }
         field.set(obj, val);
@@ -147,7 +92,7 @@ public class Query {
       }
     } catch (InstantiationException | IllegalAccessException wrappedExc) {
       Throwable exc = wrappedExc.getCause();
-      LOGGER.error("Failed create an instance of type \"{}\". Err: {}", type.getName(), exc);
+      LOGGER.error("Failed createWithProperties an instance of type \"{}\". Err: {}", type.getName(), exc);
     }
 
     return results;

@@ -1,4 +1,4 @@
-package com.tfowler.utils;
+package com.tfowler;
 
 import java.util.function.Consumer;
 

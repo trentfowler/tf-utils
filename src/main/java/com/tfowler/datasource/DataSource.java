@@ -1,9 +1,12 @@
 package com.tfowler.datasource;
 
+import com.tfowler.constants.JdbcDriver;
+import com.tfowler.utils.PropertyUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * A utility wrapper around {@link HikariDataSource} made for use with {@link DsConfig} which allows
@@ -138,8 +141,21 @@ public class DataSource {
     dataSource = new HikariDataSource(hkConfig);
   }
 
+  public static DataSource createWithProperties(final Properties properties) {
+
+    final String jdbcUrl = properties.getProperty("database.jdbcUrl");
+    final String username = properties.getProperty("database.username");
+    final String password = properties.getProperty("database.password");
+    // ...
+
+    final DsConfig config = DsConfig.builder().jdbcUrl(jdbcUrl).driverClass(JdbcDriver.MSSQL)
+        .username(username).password(password).build();
+
+    return new DataSource(config);
+  }
+
   /**
-   * Retrieves a {@link Connection} to the specified database that can fetchList SQL statements.
+   * Retrieves a {@link Connection} to the specified database.
    *
    * @return The specified {@link Connection}.
    * @throws SQLException If the connection is closed or shut down.
