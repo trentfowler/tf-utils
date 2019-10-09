@@ -16,7 +16,7 @@ public class Query {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Query.class);
 
-  private static final Query QUERY = new Query(); // createWithProperties instance for singleton class
+  private static final Query QUERY = new Query(); // instance for singleton class
 
   private DataSource dataSource;
 
