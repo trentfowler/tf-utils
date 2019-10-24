@@ -19,27 +19,27 @@ import de.vandermeer.asciithemes.u8.U8_Grids;
  * @see <a href="https://github.com/vdmeer/asciitable"></a>
  * @see <a href="http://www.vandermeer.de/projects/skb/java/asciitable/"></a>
  */
-public class TableUtil {
+public class BeanTable {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TableUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(BeanTable.class);
 
   // Defines the minimum number of characters each column in the rendered ASCII table can have. The
   // column width will only be set to this value and padded with blank spaces at the end of the
   // column when the longest word in column has fewer characters than this minimum value.
   private static final int MIN_CHARS_PER_COLUMN = 8;
 
-  private TableUtil() {} // prevent instantiation
+  private BeanTable() {} // prevent instantiation
 
   public static <T> AsciiTable asciiTable(T bean) {
-    return TableUtil.asciiTable(Collections.singletonList(bean));
+    return BeanTable.asciiTable(Collections.singletonList(bean));
   }
 
   public static <T> String asciiRender(T bean) {
-    return String.format("\n%s", TableUtil.asciiTable(Collections.singletonList(bean)).render());
+    return String.format("\n%s", BeanTable.asciiTable(Collections.singletonList(bean)).render());
   }
 
   public static <T> String asciiRender(List<T> beans) {
-    return String.format("\n%s", TableUtil.asciiTable(beans).render());
+    return String.format("\n%s", BeanTable.asciiTable(beans).render());
   }
 
   public static <T> AsciiTable asciiTable(List<T> beans) {
@@ -58,7 +58,7 @@ public class TableUtil {
       return table;
     }
     final Field[] fields = beans.get(0).getClass().getDeclaredFields();
-    table.addRow(Stream.of(fields).map(Field::getName).map(TableUtil::toNamePretty)
+    table.addRow(Stream.of(fields).map(Field::getName).map(BeanTable::getNamePretty)
         .collect(Collectors.toList()));
     table.addRule();
     for (T row : beans) {
@@ -90,7 +90,7 @@ public class TableUtil {
     return table;
   }
 
-  private static String toNamePretty(final String name) {
+  private static String getNamePretty(final String name) {
     if (name == null) {
       return "null";
     }

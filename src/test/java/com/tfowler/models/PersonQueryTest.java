@@ -2,6 +2,8 @@ package com.tfowler.models;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import com.tfowler.queries.QueryLogger;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,19 +17,19 @@ public class PersonQueryTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(PersonQueryTest.class);
 
   @Test
-  public void addressTest() throws SQLException {
+  public void testAddress() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
-    final String SQL = "SELECT TOP 1 * FROM Person.Person";
+    final String SQL = "SELECT * FROM Person.Person";
 
-    final List<Person> people = Query.with(ds).fetchList(Person.class, SQL);
+    List<Person> people = Query.with(ds).fetchList(Person.class, SQL);
 
-    people.forEach(person -> LOGGER.info("{}", person));
+    QueryLogger.log(people);
   }
 
   @Test
-  public void addressTypeTest() throws SQLException {
+  public void testAddressType() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -35,11 +37,11 @@ public class PersonQueryTest {
 
     List<AddressType> at = Query.with(ds).fetchList(AddressType.class, SQL);
 
-    at.forEach(t -> LOGGER.info("{}", t));
+    QueryLogger.log(at);
   }
 
   @Test
-  public void businessEntityTest() throws SQLException {
+  public void testBusinessEntity() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -47,11 +49,11 @@ public class PersonQueryTest {
 
     List<BusinessEntity> businessEntities = Query.with(ds).fetchList(BusinessEntity.class, SQL);
 
-    businessEntities.forEach(entity -> LOGGER.info("{}", entity));
+    QueryLogger.log(businessEntities);
   }
 
   @Test
-  public void businessEntityAddressTest() throws SQLException {
+  public void testBusinessEntityAddress() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -60,11 +62,11 @@ public class PersonQueryTest {
     List<BusinessEntityAddress> addresses =
         Query.with(ds).fetchList(BusinessEntityAddress.class, SQL);
 
-    addresses.forEach(address -> LOGGER.info("{}", address));
+    QueryLogger.log(addresses);
   }
 
   @Test
-  public void businessEntityContactTest() throws SQLException {
+  public void testBusinessEntityContact() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -73,11 +75,11 @@ public class PersonQueryTest {
     List<BusinessEntityContact> contacts =
         Query.with(ds).fetchList(BusinessEntityContact.class, SQL);
 
-    contacts.forEach(contact -> LOGGER.info("{}", contact));
+    QueryLogger.log(contacts);
   }
 
   @Test
-  public void contactTypeTest() throws SQLException {
+  public void testContactType() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -85,11 +87,11 @@ public class PersonQueryTest {
 
     List<ContactType> cts = Query.with(ds).fetchList(ContactType.class, SQL);
 
-    cts.forEach(ct -> LOGGER.info("{}", ct));
+    QueryLogger.log(cts);
   }
 
   @Test
-  public void countryRegionTest() throws SQLException {
+  public void testCountryRegion() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -97,11 +99,11 @@ public class PersonQueryTest {
 
     List<CountryRegion> regions = Query.with(ds).fetchList(CountryRegion.class, SQL);
 
-    regions.forEach(region -> LOGGER.info("{}", region));
+    QueryLogger.log(regions);
   }
 
   @Test
-  public void emailAddressTest() throws SQLException {
+  public void testEmailAddress() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -109,11 +111,11 @@ public class PersonQueryTest {
 
     List<EmailAddress> emails = Query.with(ds).fetchList(EmailAddress.class, SQL);
 
-    emails.forEach(email -> LOGGER.info("{}", email));
+    QueryLogger.log(emails);
   }
 
   @Test
-  public void passwordTest() throws SQLException {
+  public void testPassword() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -121,11 +123,11 @@ public class PersonQueryTest {
 
     List<Password> passwords = Query.with(ds).fetchList(Password.class, SQL);
 
-    passwords.forEach(password -> LOGGER.info("{}", password));
+    QueryLogger.log(passwords);
   }
 
   @Test
-  public void personPhoneTest() throws SQLException {
+  public void testPersonPhone() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -133,11 +135,11 @@ public class PersonQueryTest {
 
     List<PersonPhone> phones = Query.with(ds).fetchList(PersonPhone.class, SQL);
 
-    phones.forEach(phone -> LOGGER.info("{}", phone));
+    QueryLogger.log(phones);
   }
 
   @Test
-  public void phoneNumberTypeTest() throws SQLException {
+  public void testPhoneNumberType() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -145,11 +147,11 @@ public class PersonQueryTest {
 
     List<PhoneNumberType> types = Query.with(ds).fetchList(PhoneNumberType.class, SQL);
 
-    types.forEach(type -> LOGGER.info("{}", type));
+    QueryLogger.log(types);
   }
 
   @Test
-  public void stateProvinceTest() throws SQLException {
+  public void testStateProvince() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -157,6 +159,6 @@ public class PersonQueryTest {
 
     List<StateProvince> provinces = Query.with(ds).fetchList(StateProvince.class, SQL);
 
-    provinces.forEach(province -> LOGGER.info("{}", province));
+    QueryLogger.log(provinces);
   }
 }

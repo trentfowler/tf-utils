@@ -18,12 +18,12 @@ import org.slf4j.LoggerFactory;
  *
  * @see <a href="http://www.vandermeer.de/projects/skb/java/asciitable/features.html"></a>
  */
-public class AsciiTableTest {
+public class TableUtilTest {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AsciiTableTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TableUtilTest.class);
 
   @Test
-  public void createSimpleTable() {
+  public void testCreateSimpleTable() {
 
     final AsciiTable table = new AsciiTable();
     table.addRule();
