@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.tfowler.datasource.DataSource;
 import com.tfowler.models.adventureworks.humanresources.Department;
 import com.tfowler.queries.Query;
+import com.tfowler.queries.QueryLogger;
 import com.tfowler.utils.PropertyUtil;
 
 public class HumanResourcesQueryTest {
@@ -15,7 +16,7 @@ public class HumanResourcesQueryTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(HumanResourcesQueryTest.class);
 
   @Test
-  public void departmentTest() throws SQLException {
+  public void testDepartment() throws SQLException {
     final DataSource ds =
         DataSource.createWithProperties(PropertyUtil.fromFileName("application.properties"));
 
@@ -23,6 +24,6 @@ public class HumanResourcesQueryTest {
 
     List<Department> departments = Query.with(ds).fetchList(Department.class, SQL);
 
-    departments.forEach(department -> LOGGER.info("{}", department));
+    QueryLogger.log(departments);
   }
 }
