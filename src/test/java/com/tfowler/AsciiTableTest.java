@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
  *
  * @see <a href="http://www.vandermeer.de/projects/skb/java/asciitable/features.html"></a>
  */
-public class TableUtilTest {
+public class AsciiTableTest {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TableUtilTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AsciiTableTest.class);
 
   @Test
   public void testCreateSimpleTable() {
