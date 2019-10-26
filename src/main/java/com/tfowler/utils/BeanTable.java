@@ -53,7 +53,6 @@ public class BeanTable {
 
       table.getRenderer().setCWC(new CWC_LongestWord());
       table.getContext().setGrid(U8_Grids.borderDoubleLight());
-
       table.addRule();
       return table;
     }
