@@ -1,10 +1,10 @@
 #!/bin/bash
-# killall
-# Sends the specified kill signal to all processes that match a process name. By default it kills only processes owned
-# by the current user, unless root. Use "-s SIGNAL" to specify a signal to send to the process, "-u USER" to specify the
-# user, "-t TTY" to specify a tty, and "-n" to only report what should be done, rather than doing it.
+# killall--Sends the specified kill signal to all processes that match a process name. By default it kills only
+# processes owned by the current user, unless root. Use "-s SIGNAL" to specify a signal to send to the process,
+# "-u USER" to specify the user, "-t TTY" to specify a tty, and "-n" to only report what should be done, rather than
+# doing it.
 
-# default signal is interrupt
+# Default signal is interrupt.
 signal="-INT"
 user=""
 tty=""
@@ -55,7 +55,7 @@ else
   pids=$(ps cu -U "${USER:-LOGNAME}" | awk "/ $1$/ { print \$2 }")
 fi
 
-# No matches
+# No matches.
 if [ -z "$pids" ]; then
   echo "$0: no processes match pattern $1" >&2
   exit 1
@@ -65,7 +65,7 @@ for pid in $pids; do
   # Sending signal $signal to process id $pid. (kill might still complain if the process has finished, the user doesn't
   # have permission to kill the specific process, etc., but that's ok.)
   if [ $donothing -eq 1 ]; then
-    # The "-n" flag: "show me, but don't do it"
+    # The "-n" flag: "show me, but don't do it."
     echo "kill $signal $pid"
   else
     kill "$signal" "$pid"
