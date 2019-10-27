@@ -7,9 +7,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestWord;
 import de.vandermeer.asciitable.CWC_LongestWordMin;
@@ -105,12 +107,16 @@ public class BeanTable {
     // add a space before any uppercase character that is not the first character and that is
     // preceded by either a lowercase character or a digit
     for (int i = 1; i < name.length(); i++) {
-      if (Character.isUpperCase(name.charAt(i))) {
-        if (Character.isLowerCase(name.charAt(i - 1)) || Character.isDigit(name.charAt(i - 1))) {
+      final boolean charIsUpperCase = Character.isUpperCase(name.charAt(i));
+      final boolean charIsDigit = Character.isDigit(name.charAt(i));
+      final boolean precedingCharIsLowerCase = Character.isLowerCase(name.charAt(i - 1));
+      final boolean precedingCharIsDigit = Character.isDigit(name.charAt(i - 1));
+      if (charIsUpperCase) {
+        if (precedingCharIsLowerCase || precedingCharIsDigit) {
           stringBuilder.append(StringUtils.SPACE);
         }
-      } else if (Character.isDigit(name.charAt(i))) {
-        if (!Character.isDigit(name.charAt(i - 1)) && Character.isLowerCase(name.charAt(i - 1))) {
+      } else if (charIsDigit) {
+        if (!precedingCharIsDigit && precedingCharIsLowerCase) {
           stringBuilder.append(StringUtils.SPACE);
         }
       }
