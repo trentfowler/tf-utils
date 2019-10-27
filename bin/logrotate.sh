@@ -7,7 +7,7 @@
 logdir="/var/log"
 config="$logdir/rotatelogs.conf"
 mv="/bin/mv"
-# Default to 7-day rotation schedule
+# Default to 7-day rotation schedule.
 default_duration=7
 count=0
 duration=$default_duration
@@ -15,14 +15,14 @@ if [ ! -f $config ]; then
   echo "$0: no config file found. Can't proceed" >&2
   exit 1
 fi
+# "-w" is write permission and "-x" is execute, both are required to create new files. Fail if not present.
 if [ ! -w $logdir -o ! -x $logdir ]; then
-  # "-w" is write permission and "-x" is execute, both are required to create new files. Fail if not present.
   echo "$0: you don't have permissions on $logdir" >&2
   exit 1
 fi
 cd $logdir
-# Would like to use standard set notation like ":digit:" with the find but many versions of find don't support
-# POSIX character class identifiers, so instead we use [0-9].
+# Would like to use standard set notation like ":digit:" with find but many versions of find don't support POSIX
+# character class identifiers, so instead we use [0-9].
 for name in $(find . -maxdepth 1 -type f -size +0c ! -name '*[0-9]*' ! -name '\.*' ! -name '*conf' -print | sed 's/^\.\///'); do
   count=$(($count + 1))
   # Get the matching entry from the config file for this particular log file.
