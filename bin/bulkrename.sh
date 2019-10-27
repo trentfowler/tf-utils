@@ -1,7 +1,6 @@
 #!/bin/bash
 #bulkrename--Renames specified files by replacing text in the filename, e.g. bulkrename -f old -r new /tmp/bulk/*
-print_help()
-{
+print_help() {
   echo "Usage: $0 -f find -r replace FILES_TO_RENAME*"
   echo -e "\t-f The text to find in the filename"
   echo -e "\t-r The replacement text for the new filename"
@@ -9,15 +8,18 @@ print_help()
 }
 while getopts "f:r:" opt; do
   case "$opt" in
-  r ) replace="$OPTARG"
+  r)
+    replace="$OPTARG"
     ;;
-  f ) match="$OPTARG"
+  f)
+    match="$OPTARG"
     ;;
-  ? ) print_help
+  ?)
+    print_help
     ;;
   esac
 done
-shift $(( $OPTIND - 1 ))
+shift $(($OPTIND - 1))
 if [ -z "$replace" ] || [ -z "$match" ]; then
   echo "must supply a string to find and a string to replace"
   print_help
