@@ -110,7 +110,7 @@ public class BeanTable {
           stringBuilder.append(StringUtils.SPACE);
         }
       } else if (Character.isDigit(name.charAt(i))) {
-        if (Character.isLowerCase(name.charAt(i - 1)) && !Character.isDigit(name.charAt(i - 1))) {
+        if (!Character.isDigit(name.charAt(i - 1)) && Character.isLowerCase(name.charAt(i - 1))) {
           stringBuilder.append(StringUtils.SPACE);
         }
       }
