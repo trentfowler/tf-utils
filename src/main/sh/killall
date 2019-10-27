@@ -38,7 +38,7 @@ while getopts "s:u:t:n" opt; do
 done
 
 # Done processing all the starting flags with getops.
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 
 # If the users doesn't specify any starting arguments (earlier test is for "-?").
 if [ $# -eq 0 ]; then

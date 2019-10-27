@@ -19,12 +19,13 @@ while getopts "f:r:" opt; do
     ;;
   esac
 done
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 if [ -z "$replace" ] || [ -z "$match" ]; then
   echo "must supply a string to find and a string to replace"
   print_help
 fi
 for i in "$@"; do
-  newname=$(echo $i | sed "s/$match/$replace/")
+  # shellcheck disable=SC2001
+  newname=$(echo "$i" | sed "s/$match/$replace/")
   mv "$i" "$newname" && echo "Renamed file $i to $newname"
 done

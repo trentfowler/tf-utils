@@ -16,15 +16,16 @@ if [ ! -f $config ]; then
   exit 1
 fi
 # "-w" is write permission and "-x" is execute, both are required to create new files. Fail if not present.
-if [ ! -w $logdir -o ! -x $logdir ]; then
+if [ ! -w $logdir ] || [ ! -x $logdir ]; then
   echo "$0: you don't have permissions on $logdir" >&2
   exit 1
 fi
+# shellcheck disable=SC2164
 cd $logdir
 # Would like to use standard set notation like ":digit:" with find but many versions of find don't support POSIX
 # character class identifiers, so instead we use [0-9].
 for name in $(find . -maxdepth 1 -type f -size +0c ! -name '*[0-9]*' ! -name '\.*' ! -name '*conf' -print | sed 's/^\.\///'); do
-  count=$(($count + 1))
+  count=$((count + 1))
   # Get the matching entry from the config file for this particular log file.
   duration="$(grep "^${name}=" $config | cut -d= -f2)"
   # Use the default if there is no match.
@@ -42,7 +43,7 @@ for name in $(find . -maxdepth 1 -type f -size +0c ! -name '*[0-9]*' ! -name '\.
   # If the most recently rotated logfile (back1) has not be modified within the specific quantum, then it's not time
   # to rotate it.
   if [ -f "$back1" ]; then
-    if [ -z "$(find \"$back1\" -mtime +$duration -print 2>/dev/null)" ]; then
+    if [ -z "$(find \""$back1"\" -mtime +$duration -print 2>/dev/null)" ]; then
       /bin/echo -n "$name's most recent backup is more recent than $duration "
       echo "days: skipping"
       continue
